@@ -1,0 +1,24 @@
+Index: src/wp-admin/includes/class-wp-plugin-install-list-table.php
+===================================================================
+--- src/wp-admin/includes/class-wp-plugin-install-list-table.php	(revision 36140)
++++ src/wp-admin/includes/class-wp-plugin-install-list-table.php	(working copy)
+@@ -467,7 +467,9 @@
+ 						break;
+ 					case 'latest_installed':
+ 					case 'newer_installed':
+-						$action_links[] = '<span class="button button-disabled">' . _x( 'Installed', 'plugin' ) . '</span>';
++						/* translators: 1: Plugin name and version. */
++						$action_links[] = '<a class="activate-now button" data-plugin="' . esc_attr( $status['file'] ) . '" data-slug="' . esc_attr( $plugin['slug'] ) . '" href="' . esc_url( $status['url'] ) . '" aria-label="' . esc_attr( sprintf( __( 'Activate %s now' ), $name ) ) . '" data-name="' . esc_attr( $name ) . '">' . __( 'Activate' ) . '</a>';
++						$action_links[] = '<a class="deactivate-now button" data-plugin="' . esc_attr( $status['file'] ) . '" data-slug="' . esc_attr( $plugin['slug'] ) . '" href="' . esc_url( $status['url'] ) . '" aria-label="' . esc_attr( sprintf( __( 'Deactivate %s now' ), $name ) ) . '" data-name="' . esc_attr( $name ) . '">' . __( 'Deactivate' ) . '</a>';
+ 						break;
+ 				}
+ 			}
+@@ -501,7 +503,7 @@
+ 			$date_format = __( 'M j, Y @ H:i' );
+ 			$last_updated_timestamp = strtotime( $plugin['last_updated'] );
+ 		?>
+-		<div class="plugin-card plugin-card-<?php echo sanitize_html_class( $plugin['slug'] ); ?>">
++		<div class="plugin-card plugin-card-<?php echo sanitize_html_class( $plugin['slug'] ); ?> <?php echo is_plugin_active( $status['file'] ) ? 'active' : 'inactive'; ?> " data-plugin="<?php echo esc_attr( $status['file'] );?>'">
+ 			<div class="plugin-card-top">
+ 				<div class="name column-name">
+ 					<h3>
