@@ -272,7 +272,7 @@
 	wp.updates.updatePlugin = function( args ) {
 		var $updateRow, $card, $message, message;
 
-		if ( 'plugins' === pagenow || 'plugins-network' === pagenow ) {
+		if ( 'plugins' === pagenow || 'plugins-network' === pagenow || 'update-core' === pagenow ) {
 			$updateRow = $( 'tr[data-plugin="' + args.plugin + '"]' );
 			$message   = $updateRow.find( '.update-message' ).addClass( 'updating-message' ).find( 'p' );
 			message    = wp.updates.l10n.updatingLabel.replace( '%s', $updateRow.find( '.plugin-title strong' ).text() );
